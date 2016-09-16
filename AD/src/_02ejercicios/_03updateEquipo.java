@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSourceFactory;
 
-public class _01ejercicio {
+public class _03updateEquipo {
 
 	public static void main(String[] args) {
 
@@ -27,16 +27,13 @@ public class _01ejercicio {
 	      con = ds.getConnection();
 	      
 	      // Realizamos la consulta
-	      stmt = con.createStatement(); //aqui se anyadiran los parametros del resultset
-	      String sql = "select nompuerto, km from etapa, puerto where puerto.netapa=etapa.netapa and altura > 1000";
+	      stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); //aqui se anyadiran los parametros del resultset
+	      String sql = "select nombre, dorsal, nomeq from ciclista where dorsal=2";
 	      rs = stmt.executeQuery(sql);
 	      
-	      // Recorremos el ResultSet
-	      while (rs.next()) {
-	        //se puede poner el nombre del campo o el numero de orden de la columna del SELECT
-	        System.out.println(rs.getString("nompuerto"));  //se puede cambiar el nombre por la posicion, en este caso 1
-	        System.out.println(rs.getString("km")); //en este caso seria 2
-	      }
+	     rs.first();
+	     rs.updateString(3, "ONCE");
+	     rs.updateRow();
 	    } catch (FileNotFoundException e) {
 
 	    } catch (IOException e) {
@@ -47,4 +44,5 @@ public class _01ejercicio {
 	      e.printStackTrace();
 	    }
 	  }
+
 }
